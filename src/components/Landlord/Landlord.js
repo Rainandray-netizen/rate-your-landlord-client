@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 import './landlord.css'
 
@@ -26,9 +26,19 @@ const Landlord = () => {
       })
   }
 
+  console.log(state)
+
   return(
     <section className='landlord-wrapper'>
       <h1>{state && state.name}</h1>
+      {state && state.reviews.map((review)=>{
+        return(
+          <div>
+            <p>{review && review.userId.name}</p>
+            <p>{review && review.content}</p>
+          </div>
+        ) 
+      })}
     </section>
   )
 }
