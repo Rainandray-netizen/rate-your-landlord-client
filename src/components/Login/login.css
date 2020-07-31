@@ -1,0 +1,17 @@
+.center-form{
+  height:300px;
+  width:300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.form-container{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height:800px;
+  width:100vw;
+}
