@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import tokenService from '../../utils/tokenService'
 
 import './landlord.css'
 
@@ -14,6 +15,7 @@ const Landlord = () => {
       credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + tokenService.getToken()
       },
       redirect: 'follow', // manual, *follow, error
       referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
@@ -29,16 +31,20 @@ const Landlord = () => {
   console.log(state)
 
   return(
-    <section className='landlord-wrapper'>
+    <section className='landlord-wrapper-wrapper'>
       <h1>{state && state.name}</h1>
+      <div className='landlord-wrapper'>
       {state && state.reviews.map((review)=>{
         return(
-          <div>
-            <p>{review && review.userId.name}</p>
-            <p>{review && review.content}</p>
+          <div className='review-card'>
+            <p>{review && review.reviewerId.name}</p>
+            <p>"{review && review.content}"</p>
+            <p>{review && review.rating}/5</p>
           </div>
         ) 
       })}
+      </div>
+      
     </section>
   )
 }

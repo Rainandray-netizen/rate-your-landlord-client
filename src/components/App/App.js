@@ -12,6 +12,9 @@ import Signup from '../Signup/Signup'
 import Feed from '../Feed/Feed'
 import Landing from '../Landing/Landing'
 import Landlord from '../Landlord/Landlord'
+import AddLandlord from '../addLandlord/addLandlord'
+import AddReview from '../addReview/AddReview'
+import Review from '../Review/Review'
 
 import userService from "../../utils/userService";
 
@@ -49,8 +52,10 @@ function App() {
         {user ? 
         <div>
           <nav className='nav-bar'>
-            <h1 className='navlink' >Rate Your Landlord</h1>
+            <Link className='navlink' to='/'>Rate Your Landlord</Link>
             <h1 className='navlink'>Welcome, {user.name }</h1>
+            <Link className='navlink' to='/review/new'>New Review</Link>
+            <Link className = 'navlink' to='/landlord/new'>New Landlord</Link>
             <Link className='navlink' to='' onClick={handleLogout}>Log Out</Link>
           </nav>
           
@@ -58,7 +63,7 @@ function App() {
           :
         <div>
           <nav className='nav-bar' >
-            <h1 className='navlink' >Rate Your Landlord</h1>
+            <Link className='navlink' to='/'>Rate Your Landlord</Link>
             <Link className='navlink' to='/login' >Login</Link>
             <Link className='navlink' to='/signup' >Sign Up</Link>
           </nav>
@@ -74,8 +79,17 @@ function App() {
         <Route exact path='/signup'>
           <Signup className='center-form' handleUpdateUser={handleUpdateUser}/> 
         </Route>
+        <Route path='/landlord/new'>
+          <AddLandlord />
+        </Route>
         <Route path='/landlord/:id'>
           <Landlord />
+        </Route>
+        <Route path='/review/new'>
+          <AddReview />
+        </Route>
+        <Route path='/review/:id'>
+          <Review />
         </Route>
       </Switch>
     </Router>
