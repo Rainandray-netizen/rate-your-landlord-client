@@ -22,8 +22,7 @@ const Signup = (props) => {
       referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(data) // body data type must match "Content-Type" header
     }).then(res => {
-      if (res.ok) return res.json()
-      throw new Error('something went wrong owo :3')
+      if (res.ok) {return res.json()} else {return}
     }).then(({token}) => {
       tokenService.setToken(token)
     }).then(()=>
@@ -36,10 +35,27 @@ const Signup = (props) => {
 
   return(
     <section className='form-container'>
+      <h1>Sign Up</h1>
       <form className='center-form' onSubmit={handleSubmit(onSubmit)} >
-        <input name='name' placeholder='Username' ref={register} />
-        <input name='password' type='password' placeholder='Password' ref={register} />
-        <input type='submit' />
+        <label>Username: 
+          <input name='name' placeholder='Username' ref={register({
+            required:'Required',
+            pattern: {
+              value: /([^\s]*)/,
+              message: 'Please fill in the form'
+            }
+          })} />
+        </label>
+        <label>Password: 
+          <input name='password' type='password' placeholder='Password' ref={register({
+            required:'Required',
+            pattern: {
+              value: /([^\s]*)/,
+              message: 'Please fill in the form'
+            }
+          })} />
+        </label>
+        <input type='submit' value='Sign Up'/>
       </form>
     </section>
 

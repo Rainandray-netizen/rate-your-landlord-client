@@ -1,7 +1,6 @@
 import tokenService from './tokenService'
 
 function getUser() {
-  console.log('getting user...')
   return tokenService.getUserFromToken();
 }
 

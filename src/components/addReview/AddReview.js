@@ -24,12 +24,11 @@ const AddReview = () => {
         if (res.ok) {
           (res.json()).then((endData)=>updateLandlords(endData))
         }else{
-          console.log(res)
           throw new Error('something went wrong owo :3')
         }
       })
     }else{
-      console.log('LANDLORDS:' ,landlords)
+      
     }
 
   const user = userService.getUser()
@@ -41,8 +40,6 @@ const AddReview = () => {
   const onSubmit = async (data) => {
     data.reviewerId = user._id
 
-    
-    console.log(data)
     return fetch('https://rate-your-landlord-server.herokuapp.com/reviews/', {
       method:'POST',
       mode: 'cors',
@@ -68,13 +65,31 @@ const AddReview = () => {
     
       <section className='form-container'>
         <form className='center-form' onSubmit={handleSubmit(onSubmit)} >
-          <input min='1' max='5' name='rating' type='number' ref={register} />
-          <input name='content' placeholder='Write your review here' ref={register} />
-          <select name='landlordId' ref={register}>
-            {landlords.map((landlord)=>
-              <option value={landlord._id}>{landlord.name}</option>
-            )}
-          </select>
+          <label> Rating (1-5):
+            <input min='1' max='5' name='rating' type='number' ref={register({
+              required:'Required',
+              pattern: {
+                value: /([^\s]*)/,
+                message: 'Please fill in the form'
+              }
+            })} />
+          </label>
+          <label> Comments: 
+            <textarea rows='8' cols='50' name='content' placeholder='Write your review here' ref={register({
+              required:'Required',
+              pattern: {
+                value: /([^\s]*)/,
+                message: 'Please fill in the form'
+              }
+            })} />
+          </label>
+          <label>Landlord: 
+            <select name='landlordId' ref={register}>
+              {landlords.map((landlord)=>
+                <option value={landlord._id}>{landlord.name}</option>
+              )}
+            </select>
+          </label>
           <input type='submit' />
         </form>
       </section>

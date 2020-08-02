@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
   Link,
+  Redirect
 } from "react-router-dom";
 
 import './App.css';
@@ -22,17 +23,13 @@ import userService from "../../utils/userService";
 
 
 function App() {
-  console.log('app rerender')
   const [ user, updateUser ] = useState(userService.getUser())
 
   const handleUpdateUser = () => {
-    console.log('handleupdate user called')
     if(!user){
       const theUser = userService.getUser()
-      console.log('theUser: ',theUser)
       updateUser(theUser)
     }else{
-      console.log('already have a user')
     }
   }
 
@@ -41,19 +38,13 @@ function App() {
     updateUser(null);
   }
 
-  if(user){
-    console.log('user found: ', user)
-  }else{
-    console.log('no user')
-  }
-
   return (
     <Router>
         {user ? 
         <div>
           <nav className='nav-bar'>
-            <Link className='navlink' to='/'>Rate Your Landlord</Link>
-            <h1 className='navlink'>Welcome, {user.name }</h1>
+            <Link className='pageheader' to='/'>Rate Your Landlord</Link>
+            <h1 className='pageheader'>Welcome, {user.name }</h1>
             <Link className='navlink' to='/review/new'>New Review</Link>
             <Link className = 'navlink' to='/landlord/new'>New Landlord</Link>
             <Link className='navlink' to='' onClick={handleLogout}>Log Out</Link>
@@ -63,7 +54,7 @@ function App() {
           :
         <div>
           <nav className='nav-bar' >
-            <Link className='navlink' to='/'>Rate Your Landlord</Link>
+            <Link className='pageheader' to='/'>Rate Your Landlord</Link>
             <Link className='navlink' to='/login' >Login</Link>
             <Link className='navlink' to='/signup' >Sign Up</Link>
           </nav>
@@ -79,18 +70,31 @@ function App() {
         <Route exact path='/signup'>
           <Signup className='center-form' handleUpdateUser={handleUpdateUser}/> 
         </Route>
-        <Route path='/landlord/new'>
+
+        <Route exact path='/landlord/new' render={() => (
+          userService.getUser() ?
           <AddLandlord />
-        </Route>
-        <Route path='/landlord/:id'>
+   	      :
+          <Redirect to='/login' />
+          )}/>
+        <Route exact path='/landlord/:id' render={() => (
+          userService.getUser() ?
           <Landlord />
-        </Route>
-        <Route path='/review/new'>
+   	      :
+          <Redirect to='/login' />
+          )}/>
+        <Route exact path='/review/new' render={() => (
+          userService.getUser() ?
           <AddReview />
-        </Route>
-        <Route path='/review/:id'>
-          <Review />
-        </Route>
+   	      :
+          <Redirect to='/login' />
+          )}/>
+        <Route exact path='/review/:id' render={() => (
+          userService.getUser() ?
+          <Review userid={user._id} />
+   	      :
+          <Redirect to='/login' />
+          )}/>
       </Switch>
     </Router>
   );

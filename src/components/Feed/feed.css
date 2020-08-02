@@ -1,11 +1,13 @@
 .card {
   width: 50%;
   border: 3px solid skyblue;
+  margin:10px;
+  padding:10px;
 }
 
 .feed-container {
   margin-top: 50px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
 }

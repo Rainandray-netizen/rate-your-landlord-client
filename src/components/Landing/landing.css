@@ -1,0 +1,18 @@
+.landing-wrapper-wrapper {
+  width: 100vw;
+  height:90vh;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-wrapper {
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.maintext {
+  font-size:64px;
+}

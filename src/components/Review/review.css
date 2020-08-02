@@ -1,0 +1,21 @@
+.review-wrapper{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 400px;
+}
+
+.review-wrapper-wrapper {
+  width:100vw;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-card {
+  padding: 10px;
+  border: solid black 3px;
+  width:40vw;
+}

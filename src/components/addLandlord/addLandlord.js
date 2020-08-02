@@ -33,9 +33,27 @@ const AddLandlord = () => {
 
   return(
     <section className='form-container'>
+
+      <h1>Add a Landlord</h1>
       <form className='center-form' onSubmit={handleSubmit(onSubmit)} >
-        <input name='name' placeholder='Landlord Name' ref={register} />
-        <input name='propertyAddress' placeholder='Property Address' ref={register} />
+        <label> Name: 
+          <input name='name' placeholder='Landlord Name' ref={register({
+            required:'Required',
+            pattern: {
+              value: /([^\s]*)/,
+              message: 'Please fill in the form'
+            }
+          })} required='true'/>
+        </label>
+        <label>Property Address:
+          <input name='propertyAddress' placeholder='Property Address' ref={register({
+            required:'Required',
+            pattern: {
+              value: /([^\s]*)/,
+              message: 'Please fill in the form'
+            }
+          })} required='true'/>
+        </label>
         <input type='submit' />
       </form>
     </section>

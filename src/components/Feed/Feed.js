@@ -23,28 +23,23 @@ const Feed = (props) => {
         if (res.ok) {
           (res.json()).then((endData)=>updateState(endData))
         }else{
-          console.log(res)
           throw new Error('something went wrong owo :3')
         }
       })
     }
   
 
-console.log(state)
-
 return(
   <section className='feed-container'>
     {state && state.map((review)=>{ 
-      console.log(review)
       return(
-      <Link to={`/review/${review._id}`}>
         <div className='card' key={review._id} >
           <Link to={`/landlord/${review.landlordId._id}`}>{review.landlordId.name}</Link>
           <p>-{review.landlordId.propertyAddress}</p>
           <p>{review.rating}/5</p>
           <p>{review.content}</p>
+          <Link to={`/review/${review._id}`}>Details</Link>
         </div>
-      </Link>
       )    
     })}
   </section>

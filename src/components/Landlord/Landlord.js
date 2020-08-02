@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useHistory } from 'react-router-dom'
 import tokenService from '../../utils/tokenService'
 
 import './landlord.css'
 
 const Landlord = () => {
+  const history = useHistory()
   const { id } = useParams()
   const [state, updateState] = useState()
   if(!state){
@@ -23,12 +24,10 @@ const Landlord = () => {
         if (res.ok) {
           (res.json()).then((endData)=>updateState(endData))
         }else{
-          throw new Error('something went wrong owo :3')
+          history.push('/')
         }
       })
   }
-
-  console.log(state)
 
   return(
     <section className='landlord-wrapper-wrapper'>
